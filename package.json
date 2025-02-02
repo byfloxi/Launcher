@@ -1,7 +1,7 @@
 {
     "name": "launcher",
     "preductname": "Haven47",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Launcher Mincraft pour le serveur Haven47",
     "main": "src/app.js",
     "author": {
@@ -9,12 +9,12 @@
         "email": "contact@haven47.fr",
         "url": "https://github.com/byfloxi"
     },
-    "url": "https://haven47.verycore.fr",
+    "url": "http://havenfl.cluster021.hosting.ovh.net",
     "scripts": {
         "start": "cross-env-shell NODE_ENV=dev electron .",
         "dev": "cross-env-shell DEV_TOOL=open nodemon --exec npm start",
         "build": "node build.js --obf=true --build=platform",
-        "icon": "node build.js --icon=https://haven47.verycore.fr/img/logo.png"
+        "icon": "node build.js --icon= havenfl.cluster021.hosting.ovh.net/img/logo.png"
     },
     "license": "CCANC",
     "nodemonConfig": {
