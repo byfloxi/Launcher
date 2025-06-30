@@ -9,12 +9,12 @@
         "email": "contact@haven47.fr",
         "url": "https://github.com/byfloxi"
     },
-    "url": "http://haven47.fr/dl",
+    "url": "https://haven47.fr/dl",
     "scripts": {
         "start": "cross-env-shell NODE_ENV=dev electron .",
         "dev": "cross-env-shell DEV_TOOL=open nodemon --exec npm start",
         "build": "node build.js --obf=true --build=platform",
-        "icon": "node build.js --icon= haven47.fr/img/logo.png"
+        "icon": "node build.js --icon= haven47.fr/dl/img/logo.png"
     },
     "license": "CCANC",
     "nodemonConfig": {
@@ -27,11 +27,11 @@
         "node-bdd": "^2.0.4",
         "node-fetch": "^2.7.0",
         "xml-js": "^1.6.11"
-    },
-    "devDependencies": {
+      },
+      "devDependencies": {
         "cross-env": "^7.0.3",
-        "electron": "^30.0.9",
-        "electron-builder": "^24.13.3",
+        "electron": "30.0.9",
+        "electron-builder": "24.13.3",
         "javascript-obfuscator": "^4.1.0",
         "jimp": "^0.22.12",
         "nodemon": "^3.1.2",
