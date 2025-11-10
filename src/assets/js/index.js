@@ -32,7 +32,7 @@ class Splash {
         let splashes = [
             { "message": "Le Consontium Global vous surveille", "author": "ByFloxi" },
             { "message": "Ne vous rebellez pas", "author": "ByFloxi" },
-            { "message": "Gloire au Consortium Global, mais un kernel.", "author": "ByFloxi" }
+            { "message": "Gloire au Consortium Global.", "author": "ByFloxi" }
         ];
         let splash = splashes[Math.floor(Math.random() * splashes.length)];
         this.splashMessage.textContent = splash.message;
