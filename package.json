@@ -1,44 +1,45 @@
 {
-    "name": "launcher",
-    "preductname": "Haven47",
-    "version": "1.1.0",
-    "description": "Launcher Mincraft pour le serveur Haven47",
-    "main": "src/app.js",
-    "author": {
-        "name": "Haven47, Inc.",
-        "email": "contact@haven47.fr",
-        "url": "https://github.com/byfloxi"
-    },
-    "url": "https://haven47.fr/dl",
-    "scripts": {
-        "start": "cross-env-shell NODE_ENV=dev electron .",
-        "dev": "cross-env-shell DEV_TOOL=open nodemon --exec npm start",
-        "build": "node build.js --obf=true --build=platform",
-        "icon": "node build.js --icon= haven47.fr/dl/img/logo.png"
-    },
-    "license": "CCANC",
-    "nodemonConfig": {
-        "ext": "js,html,css",
-        "ignore": "**/test"
-    },
-    "dependencies": {
-        "electron-updater": "^6.1.8",
-        "minecraft-java-core": "^4.1.1",
-        "node-bdd": "^2.0.4",
-        "node-fetch": "^2.7.0",
-        "xml-js": "^1.6.11"
-    },
-    "devDependencies": {
-        "cross-env": "^7.0.3",
-        "electron": "30.0.9",
-        "electron-builder": "24.13.3",
-        "javascript-obfuscator": "^4.1.0",
-        "jimp": "^0.22.12",
-        "nodemon": "^3.1.2",
-        "png2icons": "^2.0.1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/byfloxi/Launcher.git"
-    }
+  "name": "launcher",
+  "productName": "Haven47",
+  "version": "1.1.0",
+  "description": "Launcher Minecraft pour le serveur Haven47",
+  "main": "src/app.js",
+  "author": {
+    "name": "Haven47, Inc.",
+    "email": "contact@haven47.fr",
+    "url": "https://github.com/byfloxi"
+  },
+  "url": "https://haven47.fr/dl",
+  "scripts": {
+    "start": "cross-env-shell NODE_ENV=dev electron .",
+    "dev": "cross-env-shell DEV_TOOL=open nodemon --exec npm start",
+    "build": "node build.js --obf=true --build=platform",
+    "icon": "node build.js --icon=haven47.fr/dl/img/logo.png"
+  },
+  "license": "CC-BY-NC-4.0",
+  "nodemonConfig": {
+    "ext": "js,html,css",
+    "ignore": "**/test"
+  },
+  "dependencies": {
+    "electron-updater": "^6.1.8",
+    "minecraft-java-core": "^4.2.3",
+    "node-bdd": "^2.0.4",
+    "node-fetch": "^2.7.0",
+    "xml-js": "^1.6.11"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "cross-env-shell": "^0.3.0",
+    "electron": "^21.2.0",
+    "electron-builder": "^24.13.3",
+    "javascript-obfuscator": "^4.1.0",
+    "jimp": "^0.22.12",
+    "nodemon": "^3.1.2",
+    "png2icons": "^2.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/byfloxi/Launcher.git"
+  }
 }
