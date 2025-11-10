@@ -1,6 +1,6 @@
 /**
- * @author ByFloxi
- * @license CC-BY-NC 4.0 - https://creativecommons.org/licenses/by-nc/4.0
+ * @author Luuxis
+ * Luuxis License v1.0 (voir fichier LICENSE pour les détails en FR/EN)
  */
 import { config, database, logger, changePanel, appdata, setStatus, pkg, popup } from '../utils.js'
 
@@ -232,9 +232,7 @@ class Home {
 
             java: {
                 path: configClient.java_config.java_path,
-                version: 8,
-                type: 'jre',
-              },
+            },
 
             screen: {
                 width: configClient.game_config.screen_size.width,

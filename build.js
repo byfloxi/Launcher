@@ -93,14 +93,27 @@ class Index {
                     icon: "./app/assets/images/icon.icns",
                     category: "public.app-category.games",
                     identity: null,
+                    hardenedRuntime: false,
+                    gatekeeperAssess: false,
+                    mergeASARs: true,
+                    singleArchFiles: "node_modules/sqlite3/**/*",
                     target: [{
                         target: "dmg",
                         arch: "universal"
                     },
                     {
-                        target: "zip",
+                        target: "zip", 
                         arch: "universal"
                     }]
+                },
+                dmg: {
+                    sign: false,
+                    contents: [
+                        { x: 130, y: 220 },
+                        { x: 410, y: 220, type: 'link', path: '/Applications' }
+                    ],
+                    artifactName: "${productName}-mac-${arch}.${ext}",
+                    format: "ULFO"
                 },
                 linux: {
                     icon: "./app/assets/images/icon.png",
