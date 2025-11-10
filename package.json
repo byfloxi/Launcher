@@ -1,7 +1,7 @@
 {
   "name": "launcher",
   "productName": "Haven47",
-  "version": "1.2.0",
+  "version": "1.2.5",
   "description": "Launcher Minecraft pour le serveur Haven47",
   "main": "src/app.js",
   "author": {
