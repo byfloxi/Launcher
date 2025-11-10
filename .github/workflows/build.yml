@@ -1,55 +1,49 @@
 name: Launcher Build
-
 on:
   push:
-    tags:
-      - 'v*'  # déclenche la build seulement sur les tags
+    branches: [ master ]
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
+  build-and-release:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-14]
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 18.x
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
 
       - name: Install dependencies
         run: npm install
+        shell: bash
 
-      - name: Build Launcher
-        run: npm run build
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: launcher-exe
-          path: dist/**/*.exe  # chemin vers ton .exe généré
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: launcher-exe
-          path: dist/
-
-      - name: Create Release
-        uses: ncipollo/release-action@v1.3.0
-        with:
-          tag: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
-          artifacts: dist/*.exe
-          draft: false
-          prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') }}
+      - name: Build launcher
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run build
+        shell: bash
+
+      - name: Create GitHub release
+        id: release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ github.ref_name || 'v' + github.run_number }}
+          name: Launcher ${{ github.ref_name || github.run_number }}
+          draft: false
+          prerelease: false
+          artifacts: |
+            dist/win-unpacked/**/*.exe
+            dist/mac/**/*.app
+            dist/linux-unpacked/**/*
+
