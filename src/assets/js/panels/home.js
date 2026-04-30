@@ -231,7 +231,8 @@ class Home {
             ignored: [...options.ignored],
 
             java: {
-                path: configClient.java_config.java_path,
+                version: 8,
+                type: 'jdk',
             },
 
             JVM_ARGS:  options.jvm_args ? options.jvm_args : [],
