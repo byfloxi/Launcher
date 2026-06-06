@@ -251,8 +251,6 @@ class Home {
             }
         }
 
-        launch.Launch(opt);
-
         playInstanceBTN.style.display = "none"
         infoStartingBOX.style.display = "block"
         progressBar.style.display = "";
@@ -337,6 +335,8 @@ class Home {
             new logger(pkg.name, '#7289da');
             console.log(err);
         });
+
+        launch.Launch(opt);
     }
 
     getdate(e) {

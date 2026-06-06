@@ -25,10 +25,11 @@ export default class popup {
         if (info.options) this.popupOptions.style.display = 'flex';
 
         if (this.popupOptions.style.display !== 'none') {
-            this.popupButton.addEventListener('click', () => {
+            // onclick (et non addEventListener) pour ne pas empiler les handlers à chaque popup
+            this.popupButton.onclick = () => {
                 if (info.exit) return ipcRenderer.send('main-window-close');
                 this.closePopup();
-            })
+            };
         }
     }
 
@@ -37,5 +38,6 @@ export default class popup {
         this.popupTitle.innerHTML = '';
         this.popupContent.innerHTML = '';
         this.popupOptions.style.display = 'none';
+        this.popupButton.onclick = null;
     }
 }

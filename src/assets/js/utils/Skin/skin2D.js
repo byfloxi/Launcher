@@ -7,16 +7,24 @@ const nodeFetch = require('node-fetch')
 export class skin2D {
     async creatHeadTexture(data) {
         let image = await getData(data)
-        return await new Promise((resolve, reject) => {
-            image.addEventListener('load', e => {
-                let cvs = document.createElement('canvas');
-                cvs.width = 8;
-                cvs.height = 8;
-                let ctx = cvs.getContext('2d');
-                ctx.drawImage(image, 8, 8, 8, 8, 0, 0, 8, 8);
-                ctx.drawImage(image, 40, 8, 8, 8, 0, 0, 8, 8);
-                return resolve(cvs.toDataURL());
-            });
+        return await new Promise((resolve) => {
+            const draw = () => {
+                try {
+                    let cvs = document.createElement('canvas');
+                    cvs.width = 8;
+                    cvs.height = 8;
+                    let ctx = cvs.getContext('2d');
+                    ctx.drawImage(image, 8, 8, 8, 8, 0, 0, 8, 8);
+                    ctx.drawImage(image, 40, 8, 8, 8, 0, 0, 8, 8);
+                    resolve(cvs.toDataURL());
+                } catch (e) {
+                    resolve(false);
+                }
+            };
+            // si l'image est déjà chargée (cache / data URL), le 'load' ne se déclenchera pas
+            if (image.complete && image.naturalWidth) return draw();
+            image.addEventListener('load', draw);
+            image.addEventListener('error', () => resolve(false));
         })
     }
 }
