@@ -1,10 +1,21 @@
 @import "font.css";
 @import 'theme.css';
 
+* {
+    box-sizing: border-box;
+}
+
+html,
 body {
-    background-color: var(--background);
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: transparent;
+    color: #eef2f8;
     font-family: "Poppins";
-    letter-spacing: 0px;
+    overflow: hidden;
 }
 
 img {
@@ -12,36 +23,92 @@ img {
     user-select: none;
 }
 
-.splash {
+#splash {
+    height: 100%;
+    width: 100%;
+}
+
+.splash-card {
     position: absolute;
-    top: 180px;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3.2rem 2rem 2rem;
+    overflow: hidden;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+        linear-gradient(160deg, #141a26 0%, #0a0d14 100%);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+    -webkit-app-region: drag;
+}
+
+/* halo animé en fond */
+.splash-aurora {
+    position: absolute;
+    top: -40%;
     left: 50%;
-    transform: translate(-50%);
-    width: 140px;
-    height: 140px;
-    transition: opacity .3s, top 1.5s;
+    transform: translateX(-50%);
+    width: 130%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(79, 140, 255, 0.45), transparent 60%);
+    filter: blur(20px);
+    animation: aurora 6s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes aurora {
+    from { opacity: 0.55; transform: translateX(-55%) scale(1); }
+    to   { opacity: 0.9;  transform: translateX(-45%) scale(1.1); }
+}
+
+.splash-top {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.4rem;
+}
+
+.splash {
+    width: 120px;
+    height: 120px;
     opacity: 0;
+    transform: translateY(10px) scale(0.9);
+    transition: opacity .6s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+    filter: drop-shadow(0 14px 34px rgba(79, 140, 255, 0.55));
 }
 
 .splash.opacity {
     opacity: 1;
+    transform: translateY(0) scale(1);
 }
 
 .splash.translate {
-    top: 129px;
+    transform: translateY(-6px);
+}
+
+.splash-brand {
+    margin-top: 1.2rem;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .splash-message {
-    position: absolute;
-    top: 289px;
-    left: 0px;
-    width: 400px;
-    font: normal normal bold 19px/29px Poppins;
+    margin: 1.4rem 0 0;
+    max-width: 320px;
     text-align: center;
-    letter-spacing: 0px;
-    transition: opacity 1.5s;
-    color: var(--color);
+    font: normal normal bold 16px/24px Poppins;
+    color: #eef2f8;
     opacity: 0;
+    transition: opacity 1.2s;
 }
 
 .splash-message.opacity {
@@ -49,68 +116,71 @@ img {
 }
 
 .splash-author {
-    position: absolute;
-    top: 326px;
-    left: 0px;
-    width: 400px;
+    margin: 0.3rem 0 0;
     text-align: center;
-    transition: opacity 1.5s;
-    font: normal normal normal 9px/13px Poppins;
-    color: var(--color);
+    font: normal normal normal 11px/16px Poppins;
+    color: rgba(238, 242, 248, 0.5);
     opacity: 0;
+    transition: opacity 1.2s;
 }
 
 .splash-author .author {
-    font: normal normal bold 9px/13px Poppins;
+    font-weight: bold;
+    color: #88b0ff;
 }
 
 .splash-author.opacity {
     opacity: 1;
 }
 
+.splash-footer {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+}
+
 .message {
-    position: absolute;
-    top: 347px;
-    left: 0px;
-    width: 400px;
+    margin: 0;
     text-align: center;
-    transition: opacity 1.5s;
-    font: normal normal bold 18px/27px Poppins;
-    color: var(--color);
+    min-height: 1.3rem;
+    font: normal normal bold 14px/20px Poppins;
+    color: #eef2f8;
     opacity: 0;
-}
-
-.download-update {
-    position: absolute;
-    left: 25%;
-    margin-top: 20px;
-    width: 200px;
-    font: normal normal bold 22px / 45px Poppins;
-    color: var(--color);
-    border: 2px solid var(--color);
-    border-radius: 15px;
-    transition: background-color .2s, color .2s;
-}
-
-.download-update:hover {
-    background-color: var(--color);
-    color: var(--background);
-    cursor: pointer;
+    transition: opacity 1.2s;
 }
 
 .message.opacity {
     opacity: 1;
 }
 
+.download-update {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 0 1.6rem;
+    font: normal normal bold 16px/40px Poppins;
+    color: #fff;
+    background: var(--accent-gradient);
+    border-radius: 12px;
+    box-shadow: 0 8px 22px rgba(79, 140, 255, 0.4);
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.download-update:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(79, 140, 255, 0.55);
+}
+
 .progress {
-    position: absolute;
-    top: 410px;
-    left: 106px;
-    width: 189px;
-    height: 10px;
+    width: 80%;
+    height: 8px;
     appearance: none;
-    transition: opacity .2s;
     opacity: 0;
+    transition: opacity .3s;
 }
 
 .show {
@@ -118,12 +188,17 @@ img {
 }
 
 .progress::-webkit-progress-bar {
-    background-color: var(--background);
-    border: solid 1px var(--element-color);
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 10px;
 }
 
 .progress::-webkit-progress-value {
-    background-color: var(--element-color);
+    background: var(--accent-gradient);
     border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }

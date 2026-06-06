@@ -89,30 +89,45 @@ class Launcher {
         console.log('Initializing Config Client...')
         let configClient = await this.db.readData('configClient')
 
-        if (!configClient) {
-            await this.db.createData('configClient', {
-                account_selected: null,
-                instance_selct: null,
-                java_config: {
-                    java_path: null,
-                    java_memory: {
-                        min: 2,
-                        max: 4
-                    }
-                },
-                game_config: {
-                    screen_size: {
-                        width: 854,
-                        height: 480
-                    }
-                },
-                launcher_config: {
-                    download_multi: 5,
-                    theme: 'auto',
-                    closeLauncher: 'close-launcher',
-                    intelEnabledMac: true
+        let defaultConfig = {
+            account_selected: null,
+            instance_selct: null,
+            java_config: {
+                java_path: null,
+                java_memory: {
+                    min: 2,
+                    max: 4
                 }
-            })
+            },
+            game_config: {
+                screen_size: {
+                    width: 854,
+                    height: 480
+                }
+            },
+            launcher_config: {
+                download_multi: 5,
+                theme: 'auto',
+                closeLauncher: 'close-launcher',
+                intelEnabledMac: true
+            }
+        }
+
+        if (!configClient) {
+            await this.db.createData('configClient', defaultConfig)
+            return
+        }
+
+        // Auto-réparation : si la config a été corrompue (structure incomplète), on restaure les champs manquants
+        if (!configClient.java_config || !configClient.game_config || !configClient.launcher_config) {
+            let repaired = {
+                ...defaultConfig,
+                ...configClient,
+                java_config: configClient.java_config || defaultConfig.java_config,
+                game_config: configClient.game_config || defaultConfig.game_config,
+                launcher_config: configClient.launcher_config || defaultConfig.launcher_config
+            }
+            await this.db.updateData('configClient', repaired)
         }
     }
 
@@ -153,12 +168,11 @@ class Launcher {
                     let refresh_accounts = await new Microsoft(this.config.client_id).refresh(account);
 
                     if (refresh_accounts.error) {
-                        await this.db.deleteData('accounts', account_ID)
-                        if (account_ID == account_selected) {
-                            configClient.account_selected = null
-                            await this.db.updateData('configClient', configClient)
-                        }
+                        // Echec de refresh (réseau/token temporaire) : on NE supprime PAS le compte,
+                        // on garde la session existante pour éviter de redemander la connexion à chaque lancement.
                         console.error(`[Account] ${account.name}: ${refresh_accounts.errorMessage}`);
+                        await addAccount(account)
+                        if (account_ID == account_selected) accountSelect(account)
                         continue;
                     }
 
@@ -238,20 +252,19 @@ class Launcher {
             configClient = await this.db.readData('configClient')
             account_selected = configClient ? configClient.account_selected : null
 
-            if (!account_selected) {
-                let uuid = accounts[0].ID
-                if (uuid) {
-                    configClient.account_selected = uuid
-                    await this.db.updateData('configClient', configClient)
-                    accountSelect(uuid)
-                }
-            }
-
             if (!accounts.length) {
-                config.account_selected = null
-                await this.db.updateData('configClient', config);
+                if (configClient) {
+                    configClient.account_selected = null
+                    await this.db.updateData('configClient', configClient)
+                }
                 popupRefresh.closePopup()
                 return changePanel("login");
+            }
+
+            if (!account_selected) {
+                configClient.account_selected = accounts[0].ID
+                await this.db.updateData('configClient', configClient)
+                accountSelect(accounts[0])
             }
 
             popupRefresh.closePopup()

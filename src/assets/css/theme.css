@@ -1,24 +1,52 @@
 .global {
-    --element-color: #00bd7a;
-    --transition: all 0.5s cubic-bezier(1, 0.46, 0, 1.29);
-    --dark-color: #292929;
-    --light-color: rgb(245, 245, 245);
+    /* Accent — bleu Haven47 */
+    --accent: #4f8cff;
+    --accent-strong: #2f6bff;
+    --accent-soft: #88b0ff;
+    --element-color: #4f8cff; /* alias historique conservé pour la compat */
+    --accent-gradient: linear-gradient(135deg, #4f8cff 0%, #6f9bff 55%, #8a7bff 100%);
+    --accent-glow: 0 10px 32px rgba(79, 140, 255, 0.40);
+    --accent-glow-soft: 0 6px 18px rgba(79, 140, 255, 0.28);
+
+    --transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+
+    --radius-sm: 12px;
+    --radius: 18px;
+    --radius-lg: 26px;
+
+    --blur: blur(22px) saturate(150%);
+    --card-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+
+    --dark-color: #14171f;
+    --light-color: #eef2f8;
 }
 
 .dark {
-    --color: #F5F5F5;
-    --background: #292929;
-    --background-element: #424242;
-    --background-transparent: #2c2c2ccc;
-    --shadow: rgba(25, 25, 25, 0.7);
-    --svg-color: brightness(0) saturate(100%) invert(100%) sepia(55%) saturate(23%) hue-rotate(236deg) brightness(108%) contrast(92%);
+    --color: #eef2f8;
+    --color-muted: rgba(238, 242, 248, 0.62);
+
+    --background: rgba(22, 26, 35, 0.74);
+    --background-element: rgba(255, 255, 255, 0.06);
+    --background-transparent: rgba(16, 20, 28, 0.55);
+    --shadow: rgba(8, 10, 15, 0.55);
+
+    --glass-border: rgba(255, 255, 255, 0.10);
+    --glass-border-strong: rgba(255, 255, 255, 0.20);
+
+    --svg-color: brightness(0) saturate(100%) invert(98%);
 }
 
 .light {
-    --color: #151515;
-    --background: rgb(245, 245, 245);
-    --background-element: #c2c2c2;
-    --background-transparent: rgba(204, 204, 204, 0.8);
-    --shadow: rgba(208, 208, 208, 0.7);
-    --svg-color: brightness(0) saturate(100%) invert(0%) sepia(5%) saturate(1719%) hue-rotate(357deg) brightness(94%) contrast(84%);
+    --color: #14171f;
+    --color-muted: rgba(20, 23, 31, 0.55);
+
+    --background: rgba(255, 255, 255, 0.72);
+    --background-element: rgba(20, 30, 50, 0.06);
+    --background-transparent: rgba(255, 255, 255, 0.55);
+    --shadow: rgba(120, 130, 150, 0.22);
+
+    --glass-border: rgba(255, 255, 255, 0.55);
+    --glass-border-strong: rgba(255, 255, 255, 0.85);
+
+    --svg-color: brightness(0) saturate(100%) invert(8%);
 }

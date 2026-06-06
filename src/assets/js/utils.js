@@ -32,7 +32,10 @@ async function setBackground(theme) {
     } else if (fs.existsSync(`${__dirname}/assets/images/background/${theme ? 'dark' : 'light'}`)) {
         let backgrounds = fs.readdirSync(`${__dirname}/assets/images/background/${theme ? 'dark' : 'light'}`);
         let Background = backgrounds[Math.floor(Math.random() * backgrounds.length)];
-        background = `linear-gradient(#00000080, #00000080), url(./assets/images/background/${theme ? 'dark' : 'light'}/${Background})`;
+        let overlay = theme
+            ? 'linear-gradient(160deg, rgba(10, 14, 22, 0.78), rgba(14, 18, 30, 0.62)), radial-gradient(circle at 50% 18%, rgba(79, 140, 255, 0.20), transparent 60%)'
+            : 'linear-gradient(160deg, rgba(255, 255, 255, 0.42), rgba(225, 232, 245, 0.32)), radial-gradient(circle at 50% 18%, rgba(79, 140, 255, 0.16), transparent 60%)';
+        background = `${overlay}, url(./assets/images/background/${theme ? 'dark' : 'light'}/${Background})`;
     }
     body.style.backgroundImage = background ? background : theme ? '#000' : '#fff';
     body.style.backgroundSize = 'cover';

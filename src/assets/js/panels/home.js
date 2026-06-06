@@ -117,11 +117,13 @@ class Home {
         }
 
         if (!instanceSelect) {
-            let newInstanceSelect = instancesList.find(i => i.whitelistActive == false)
-            let configClient = await this.db.readData('configClient')
-            configClient.instance_selct = newInstanceSelect.name
-            instanceSelect = newInstanceSelect.name
-            await this.db.updateData('configClient', configClient)
+            let newInstanceSelect = instancesList.find(i => i.whitelistActive == false) || instancesList[0]
+            if (newInstanceSelect) {
+                let configClient = await this.db.readData('configClient')
+                configClient.instance_selct = newInstanceSelect.name
+                instanceSelect = newInstanceSelect.name
+                await this.db.updateData('configClient', configClient)
+            }
         }
 
         for (let instance of instancesList) {

@@ -4,9 +4,15 @@
 @import 'panels/home.css';
 @import 'panels/settings.css';
 
+html,
+body {
+    height: 100%;
+}
+
 body {
     margin: 0;
     padding: 0;
+    overflow: hidden;
     user-select: none;
     color: var(--color);
     font-family: 'Poppins';
@@ -32,8 +38,10 @@ input::-webkit-inner-spin-button {
     overflow: auto;
 }
 
-.content-scroll::-webkit-scrollbar {
+/* Scrollbars masquées partout (scroll toujours possible) */
+::-webkit-scrollbar {
     width: 0;
+    height: 0;
 }
 
 .dragbar {
@@ -58,15 +66,16 @@ input::-webkit-inner-spin-button {
 .other .frame {
     background: transparent;
     position: fixed;
-    top: 0px;
-    right: 0px;
+    top: 6px;
+    right: 8px;
     z-index: 11;
     -webkit-app-region: no-drag;
     display: none;
 }
 
 .frame.hide {
-    display: block;
+    display: flex;
+    gap: 4px;
 }
 
 .darwin .button-frame {
@@ -79,21 +88,22 @@ input::-webkit-inner-spin-button {
 
 .other .button-frame {
     position: relative;
-    display: table-cell;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 30px;
     height: 26px;
-    transition: color .2s, background-color .2s;
-    color: black;
+    border-radius: 8px;
+    transition: var(--transition);
+    color: var(--color);
     cursor: pointer;
 }
 
 .button-frame:before {
-    position: absolute;
-    top: 6px;
-    left: 8px;
+    position: relative;
     width: 14px;
     height: 14px;
-    font-size: 14px;
+    font-size: 12px;
     color: #f8f9f9;
 }
 
@@ -126,15 +136,21 @@ input::-webkit-inner-spin-button {
     background: #ff6047;
 }
 
-.icon-close:hover {
-    background: #e21212;
-}
-
 .icon-minimize:hover,
 .icon-restore-down:hover,
 .icon-maximize:hover {
-    background-color: #0000009d;
+    background-color: rgba(255, 255, 255, 0.16);
 }
+
+.icon-close:hover {
+    background: #e2333f;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Popup                                                                       *
+ *                                                                             *
+ ******************************************************************************/
 
 .popup {
     position: absolute;
@@ -145,21 +161,42 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
 .popup-tab {
     width: 40%;
-    padding: 15px;
+    padding: 1.6rem 1.8rem;
     background: var(--background);
-    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--card-shadow);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
     z-index: 10;
+    animation: popup-in .35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes popup-in {
+    from { opacity: 0; transform: translateY(14px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .popup-title {
     text-align: center;
-    font-size: 2rem;
-    border-bottom: solid 4px var(--color);
+    font-size: 1.7rem;
+    padding-bottom: 0.8rem;
     margin-bottom: 1rem;
+    border-bottom: 1px solid var(--glass-border-strong);
+}
+
+.popup-content {
+    text-align: center;
+    color: var(--color-muted);
+    font-weight: 400;
+    line-height: 1.5;
 }
 
 .popup-options {
@@ -169,15 +206,29 @@ input::-webkit-inner-spin-button {
 }
 
 .popup-button {
-    background: none;
-    color: var(--color);
-    border: solid 4px var(--element-color);
-    border-radius: 10px;
-    padding: 0.3rem 4rem;
+    background: var(--accent-gradient);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 3.2rem;
     font-size: inherit;
     font-weight: bold;
-    margin: 15px 10px;
+    margin: 1rem 0 0 0;
+    cursor: pointer;
+    box-shadow: var(--accent-glow-soft);
+    transition: var(--transition);
 }
+
+.popup-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--accent-glow);
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Panels                                                                      *
+ *                                                                             *
+ ******************************************************************************/
 
 .panel {
     position: absolute;
@@ -186,10 +237,13 @@ input::-webkit-inner-spin-button {
     opacity: 0;
     z-index: 0;
     pointer-events: none;
+    transform: scale(1.015);
+    transition: opacity .4s ease, transform .4s ease;
 }
 
 .active {
     opacity: 1;
     z-index: 1;
     pointer-events: all;
+    transform: scale(1);
 }

@@ -1,50 +1,180 @@
 .login .container {
     display: flex;
+    align-items: stretch;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Brand (côté gauche)                                                          *
+ *                                                                             *
+ ******************************************************************************/
+
+.login-brand {
+    position: relative;
+    flex: 1;
+    display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(79, 140, 255, 0.30), transparent 55%),
+        var(--background-transparent);
+    border-right: 1px solid var(--glass-border);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+}
+
+.login-brand-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.login-logo {
+    width: 120px;
+    height: 120px;
+    filter: drop-shadow(0 16px 36px rgba(79, 140, 255, 0.5));
+}
+
+.login-brand-title {
+    margin-top: 1.4rem;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.login-brand-text {
+    margin-top: 0.6rem;
+    max-width: 18rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-muted);
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Panel (côté droit)                                                           *
+ *                                                                             *
+ ******************************************************************************/
+
+.login-panel {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    box-sizing: border-box;
 }
 
 .login-tabs {
-    position: absolute;
-    padding: 15px;
+    display: none;
+    width: 100%;
+    max-width: 360px;
+    padding: 2.4rem 2rem;
     background: var(--background);
-    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    box-shadow: var(--card-shadow);
+    border-radius: var(--radius-lg);
     text-align: center;
-    min-width: 40%;
+    box-sizing: border-box;
+    animation: popup-in .4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.login-home,
-.login-offline,
-.login-AZauth,
-.login-AZauth-A2F {
-    display: none;
+.login-head {
+    margin-bottom: 1.4rem;
+}
+
+.login-title {
+    font-size: 1.8rem;
+    font-weight: 700;
 }
 
 .login-text {
-    font-size: 1.3rem;
+    margin-top: 0.3rem;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--color-muted);
 }
 
-.connect,
-.cancel {
-    background: none;
-    color: var(--color);
-    border: solid 4px var(--element-color);
-    border-radius: 10px;
-    padding: 0.3rem 4rem;
-    font-size: inherit;
-    font-weight: bold;
-    margin: 15px 10px;
+.input-login {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin: 0.4rem 0 0.4rem;
 }
 
 .input-login .email,
 .input-login .password,
 .A2F {
+    width: 100%;
     color: var(--color);
-    background: none;
-    border: solid 2px var(--element-color);
-    border-radius: 30px;
-    width: 50%;
-    padding: 0.4rem 1rem;
-    margin-top: 10px;
+    background: var(--background-element);
+    border: 1px solid var(--glass-border-strong);
+    border-radius: var(--radius);
+    padding: 0.8rem 1.2rem;
+    font-family: 'Poppins';
+    box-sizing: border-box;
+    transition: var(--transition);
+}
+
+.input-login .email::placeholder,
+.input-login .password::placeholder,
+.A2F::placeholder {
+    color: var(--color-muted);
+}
+
+.input-login .email:focus,
+.input-login .password:focus,
+.A2F:focus {
+    border-color: var(--accent);
+    box-shadow: var(--accent-glow-soft);
+}
+
+.login-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 1.4rem;
+}
+
+.connect,
+.cancel {
+    width: 100%;
+    color: #fff;
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.8rem 1rem;
+    font-size: 1.05rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: var(--accent-glow-soft);
+    transition: var(--transition);
+}
+
+.connect:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--accent-glow);
+}
+
+.cancel {
+    background: var(--background-element);
+    color: var(--color);
+    border: 1px solid var(--glass-border-strong);
+    box-shadow: none;
+}
+
+.cancel:hover {
+    border-color: var(--color-muted);
 }
